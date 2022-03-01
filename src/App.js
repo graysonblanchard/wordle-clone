@@ -111,7 +111,7 @@ export default function App() {
   const enterCurrentText = (word) => {
     let boardWords = boardData.boardWords;
     let rowIndex = boardData.rowIndex;
-    boardData[rowIndex] = word;
+    boardWords[rowIndex] = word;
     let newBoardData = { ...boardData, boardWords: boardWords };
     setBoardData(newBoardData);
   };
@@ -120,18 +120,20 @@ export default function App() {
     if (boardData.rowIndex > 5 || boardData.status === "WIN") {
       return;
     }
-    if ((key = "ENTER")) {
+    if ((key === "ENTER")) {
       if (charArray.length === 5) {
         let word = charArray.join("").toLowerCase();
         if (!wordList[word.charAt(0)].includes(word)) {
           handleError();
           handleMessage("Not in word list");
+          return;
         }
         enterBoardWord(word);
         setCharArray([]);
       } else {
         handleMessage("Not enough letters");
       }
+      return;
     }
     if (key === "⌫") {
       charArray.splice(charArray.length - 1, 1);
@@ -168,39 +170,39 @@ export default function App() {
   return (
     <div className="container">
       <div className="top">
-        <div className="title">WORDLE</div>
+        <div className="title">WORDLE CLONE</div>
         <button className="reset-board" onClick={resetBoard}>
           {"\u27f3"}
         </button>
-        {message && <div className="message">{message}</div>}
-        <div className="cube">
-          {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
-            <div
-              key={rowIndex}
-              className={`cube-row ${
-                boardData && row == boardData.rowIndex && error && "error"
-              }`}
-            >
-              {[0, 1, 2, 3, 4].map((column, letterIndex) => (
-                <div
-                  key={letterIndex}
-                  className={`letter ${
-                    boardData && boardData.boardRowStatus[row]
-                      ? boardData.boardRowStatus[row][column]
-                      : ""
-                  }`}
-                >
-                  {boardData &&
-                    boardData.boardWords[row] &&
-                    boardData.boardWords[row][column]}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-        <div className="bottom">
-          <Keyboard boardData={boardData} handleKeyPress={handleKeyPress} />
-        </div>
+      </div>
+      {message && <div className="message">{message}</div>}
+      <div className="cube">
+        {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            className={`cube-row ${
+              boardData && row === boardData.rowIndex && error && "error"
+            }`}
+          >
+            {[0, 1, 2, 3, 4].map((column, letterIndex) => (
+              <div
+                key={letterIndex}
+                className={`letter ${
+                  boardData && boardData.boardRowStatus[row]
+                    ? boardData.boardRowStatus[row][column]
+                    : ""
+                }`}
+              >
+                {boardData &&
+                  boardData.boardWords[row] &&
+                  boardData.boardWords[row][column]}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="bottom">
+        <Keyboard boardData={boardData} handleKeyPress={handleKeyPress} />
       </div>
     </div>
   );

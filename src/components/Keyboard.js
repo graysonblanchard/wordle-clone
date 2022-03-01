@@ -1,13 +1,13 @@
 import React from "react";
 import { keys } from "../constants/constants";
-import '../styles/Keyboard.css'
+import "../styles/Keyboard.css";
 
-export default function Keyboard({ boardData }) {
+export default function Keyboard({boardData, handleKeyPress}) {
   return (
     <div className="keyboard-rows">
       {keys.map((item, index) => (
         <div className="row" key={index}>
-          {item.map((key, keyIndex) => {
+          {item.map((key, keyIndex) => (
             <button
               key={keyIndex}
               className={`${
@@ -24,8 +24,8 @@ export default function Keyboard({ boardData }) {
               }}
             >
               {key}
-            </button>;
-          })}
+            </button>
+          ))}
         </div>
       ))}
     </div>
