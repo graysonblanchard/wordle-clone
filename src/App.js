@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Keyboard from "./components/Keyboard";
+import { wordList } from "./constants/data";
+import "./App.css";
 
 export default function App() {
   const [boardData, setBoardData] = useState(
@@ -162,5 +165,43 @@ export default function App() {
     }
   }, []);
 
-  return <div></div>;
+  return (
+    <div className="container">
+      <div className="top">
+        <div className="title">WORDLE</div>
+        <button className="reset-board" onClick={resetBoard}>
+          {"\u27f3"}
+        </button>
+        {message && <div className="message">{message}</div>}
+        <div className="cube">
+          {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
+            <div
+              key={rowIndex}
+              className={`cube-row ${
+                boardData && row == boardData.rowIndex && error && "error"
+              }`}
+            >
+              {[0, 1, 2, 3, 4].map((column, letterIndex) => (
+                <div
+                  key={letterIndex}
+                  className={`letter ${
+                    boardData && boardData.boardRowStatus[row]
+                      ? boardData.boardRowStatus[row][column]
+                      : ""
+                  }`}
+                >
+                  {boardData &&
+                    boardData.boardWords[row] &&
+                    boardData.boardWords[row][column]}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className="bottom">
+          <Keyboard boardData={boardData} handleKeyPress={handleKeyPress} />
+        </div>
+      </div>
+    </div>
+  );
 }
