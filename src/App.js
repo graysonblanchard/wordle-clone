@@ -165,7 +165,7 @@ export default function App() {
       setBoardData(newBoardData);
       localStorage.setItem("board-data", JSON.stringify(newBoardData));
     }
-  }, []);
+  }, [boardData]);
 
   return (
     <div className="container">
