@@ -84,28 +84,28 @@ export default function App() {
           absentCharArray.push(word.charAt(index));
         }
       }
-      if (matchCount === 5) {
-        status = "WIN";
-        handleMessage("You won!");
-      } else if (rowIndex + 1 === 6) {
-        status = "LOSE";
-        handleMessage("Bad luck! Try again with a new word");
-      }
-      boardRowStatus.push(rowStatus);
-      boardWords[rowIndex] = word;
-      let newBoardData = {
-        ...boardData,
-        boardWords: boardWords,
-        boardRowStatus: boardRowStatus,
-        rowIndex: rowIndex + 1,
-        status: status,
-        presentCharArray: presentCharArray,
-        correctCharArray: correctCharArray,
-        absentCharArray: absentCharArray,
-      };
-      setBoardData(newBoardData);
-      localStorage.setItem("board-data", JSON.stringify(newBoardData));
     }
+    if (matchCount === 5) {
+      status = "WIN";
+      handleMessage("You won!");
+    } else if (rowIndex + 1 === 6) {
+      status = "LOSE";
+      handleMessage("Bad luck! Try again with a new word");
+    }
+    boardRowStatus.push(rowStatus);
+    boardWords[rowIndex] = word;
+    let newBoardData = {
+      ...boardData,
+      boardWords: boardWords,
+      boardRowStatus: boardRowStatus,
+      rowIndex: rowIndex + 1,
+      status: status,
+      presentCharArray: presentCharArray,
+      correctCharArray: correctCharArray,
+      absentCharArray: absentCharArray,
+    };
+    setBoardData(newBoardData);
+    localStorage.setItem("board-data", JSON.stringify(newBoardData));
   };
 
   const enterCurrentText = (word) => {
@@ -120,7 +120,7 @@ export default function App() {
     if (boardData.rowIndex > 5 || boardData.status === "WIN") {
       return;
     }
-    if ((key === "ENTER")) {
+    if (key === "ENTER") {
       if (charArray.length === 5) {
         let word = charArray.join("").toLowerCase();
         if (!wordList[word.charAt(0)].includes(word)) {
