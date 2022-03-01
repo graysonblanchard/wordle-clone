@@ -20,6 +20,8 @@
   letter-spacing: 0.2rem;
   font-size: 36px;
   font-weight: 600;
+  height: fit-content;
+  margin: auto;
 }
 
 .cube-row {

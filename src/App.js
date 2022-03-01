@@ -142,7 +142,7 @@ export default function App() {
       charArray.push(key);
       setCharArray([...charArray]);
     }
-    enterCurrentText(charArray.join("").toLowerCase);
+    enterCurrentText(charArray.join("").toLowerCase());
   };
 
   useEffect(() => {
