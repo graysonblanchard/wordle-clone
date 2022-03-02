@@ -35,3 +35,25 @@ button {
   background: #787c7e;
   color: #fff;
 }
+
+@media only screen and (max-width: 500px) {
+  .bottom {
+    position: relative;
+    width: 100%;
+    bottom: 10px;
+    margin-top: 0;
+  }
+
+  .keyboard-rows {
+    padding-top: 10px;
+    gap: 4px;
+  }
+
+  .row {
+    gap: 2px;
+  }
+
+  .row button {
+    padding: 18px 12px;
+  }
+}
